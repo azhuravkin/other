@@ -12,18 +12,22 @@ $path = array("/var/log/nginx/", "/var/log/php-fpm/");
 $step = 20;
 $offset = 0;
 
-if ($_GET['path'] != "" && $_GET['file'] != "") {
-    $offset = $_POST['offset'];
+if (isset($_GET['path']) && $_GET['path'] != "" && isset($_GET['file']) && $_GET['file'] != "") {
+    if (isset($_POST['offset'])) {
+	$offset = $_POST['offset'];
+    }
 
-    if ($_POST['goto'] == ">>") {
-	$offset++;
-    } elseif ($_POST['goto'] == "<<") {
-	$offset--;
-	if ($offset < 0) {
+    if (isset($_POST['goto'])) {
+	if ($_POST['goto'] == ">>") {
+	    $offset++;
+	} elseif ($_POST['goto'] == "<<") {
+	    $offset--;
+	    if ($offset < 0) {
+		$offset = 0;
+	    }
+	} elseif ($_POST['goto'] == "reset") {
 	    $offset = 0;
 	}
-    } elseif ($_POST['goto'] == "reset") {
-	$offset = 0;
     }
 
     if ($fh = fopen($path[$_GET['path']] . $_GET['file'], "r")) {
