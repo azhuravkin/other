@@ -47,18 +47,18 @@ for (my $quest_num = 1; $quest_num <= 12; $quest_num++) {
     chop($ans);
 
     if ($ans eq check($DATA[$offset + $quest_num][10])) {
-	print color("green"), "\nПравильно!", color("reset"), "\n";
 	$ok++;
+	print color("green"), "\nПравильно! ($ok из $quest_num)", color("reset"), "\n";
     } else {
-	print color("red"), "\nНе правильно!", color("blue"), "\nПравильный ответ: ";
+	print color("red"), "\nНе правильно! ($ok из $quest_num)", color("blue"), "\nПравильный ответ: ";
 	print check($DATA[$offset + $quest_num][10]), color("reset"), "\n";
     }
 }
 
 if ($ok >= 10) {
-    print color("green"), "\n\nБилет сдан!!!", color("reset"), "\n";
+    print color("green"), "\n\nБилет сдан!!! ($ok из 12)", color("reset"), "\n";
 } else {
-    print color("red"), "\n\nБилет не сдан!!!", color("reset"), "\n";
+    print color("red"), "\n\nБилет не сдан!!! ($ok из 12)", color("reset"), "\n";
 }
 
 sub check {
