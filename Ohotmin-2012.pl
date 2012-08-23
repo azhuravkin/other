@@ -1,17 +1,19 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -w
 
 use strict;
 use Term::ANSIColor;
 
 my @DATA;
 my $id;
-my $num;
+my $num = 0;
 my $ok = 0;
 
-if (open(IN, "Ohotmin.txt")) {
+open(STDERR, ">/dev/null");
+
+if (open(IN, "<:encoding(utf-16)", "Questions.ini")) {
     foreach my $line (<IN>) {
-	chop($line);
-	
+	chomp($line);
+
 	if ($line =~ m/^\[(\d+)\]$/) {
 	    $id = $1;
 	} elsif ($line =~ m/^que=(.*)$/) {
