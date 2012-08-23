@@ -7,6 +7,7 @@ my @DATA;
 my $id;
 my $num = 0;
 my $ok = 0;
+my $offset;
 
 open(STDERR, ">/dev/null");
 
@@ -28,12 +29,16 @@ if (open(IN, "<:encoding(utf-16)", "Questions.ini")) {
     close(IN);
 }
 
-while ($num < 1 || $num > $#DATA / 12) {
-    printf("Введите номер билета от 1 до %d: ", $#DATA / 12);
+while (!$num || $num < -1 || $num > $#DATA / 12) {
+    printf("Введите номер билета от 1 до %d или -1 для случайного выбора: ", $#DATA / 12);
     $num = (<STDIN>);
 }
 
-my $offset = ($num - 1) * 12;
+if ($num == -1) {
+    $offset = rand(time()) % 30 + 1;
+} else {
+    $offset = ($num - 1) * 12;
+}
 
 for (my $quest_num = 1; $quest_num <= 12; $quest_num++) {
     printf("\n%d) %s\n\n", $quest_num, $DATA[$offset + $quest_num][0]);
