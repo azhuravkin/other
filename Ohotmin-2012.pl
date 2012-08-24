@@ -5,7 +5,7 @@ use Term::ANSIColor;
 
 my @DATA;
 my $id;
-my $num = 0;
+my $bilet = 0;
 my $ok = 0;
 my $offset;
 
@@ -29,15 +29,16 @@ if (open(IN, "<:encoding(utf-16)", "Questions.ini")) {
     close(IN);
 }
 
-while (!$num || $num < -1 || $num > $#DATA / 12) {
+while (!$bilet || $bilet < -1 || $bilet > $#DATA / 12) {
     printf("Введите номер билета от 1 до %d или -1 для случайного выбора: ", $#DATA / 12);
-    $num = (<STDIN>);
+    $bilet = (<STDIN>);
+    chop($bilet);
 }
 
-if ($num == -1) {
-    $offset = rand(time()) % 30 + 1;
+if ($bilet == -1) {
+    $offset = rand(time()) % 30 * 12;
 } else {
-    $offset = ($num - 1) * 12;
+    $offset = ($bilet - 1) * 12;
 }
 
 for (my $quest_num = 1; $quest_num <= 12; $quest_num++) {
@@ -61,9 +62,9 @@ for (my $quest_num = 1; $quest_num <= 12; $quest_num++) {
 }
 
 if ($ok >= 10) {
-    print color("green"), "\n\nБилет сдан!!! ($ok из 12)", color("reset"), "\n";
+    print color("green"), "\n\nБилет $bilet сдан!!! ($ok из 12)", color("reset"), "\n";
 } else {
-    print color("red"), "\n\nБилет не сдан!!! ($ok из 12)", color("reset"), "\n";
+    print color("red"), "\n\nБилет $bilet не сдан!!! ($ok из 12)", color("reset"), "\n";
 }
 
 sub check {
