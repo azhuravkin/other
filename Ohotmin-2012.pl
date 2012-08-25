@@ -36,10 +36,10 @@ while (!$bilet || $bilet < -1 || $bilet > $#DATA / 12) {
 }
 
 if ($bilet == -1) {
-    $offset = rand(time()) % 30 * 12;
-} else {
-    $offset = ($bilet - 1) * 12;
+    $bilet = rand(time()) % 30 + 1;
 }
+
+$offset = ($bilet - 1) * 12;
 
 for (my $quest_num = 1; $quest_num <= 12; $quest_num++) {
     printf("\n%d) %s\n\n", $quest_num, $DATA[$offset + $quest_num][0]);
