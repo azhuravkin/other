@@ -29,6 +29,19 @@ if (open(IN, "<:encoding(utf-16)", "Questions.ini")) {
     close(IN);
 }
 
+if (0) {
+    for (my $i = 1; $i <= $#DATA; $i++) {
+	printf("\n%d) %s\n", $i, $DATA[$i][0]);
+
+	for (my $j = 1; defined($DATA[$i][$j]); $j++) {
+	    printf("%d - %s\n", $j, $DATA[$i][$j]);
+	}
+
+	printf("Ответ: %s\n", check($DATA[$i][10]));
+    }
+    exit;
+}
+
 while (!$bilet || $bilet < -1 || $bilet > $#DATA / 12) {
     printf("Введите номер билета от 1 до %d или -1 для случайного выбора: ", $#DATA / 12);
     $bilet = (<STDIN>);
@@ -36,7 +49,7 @@ while (!$bilet || $bilet < -1 || $bilet > $#DATA / 12) {
 }
 
 if ($bilet == -1) {
-    $bilet = rand(time()) % 30 + 1;
+    $bilet = int(rand(30)) + 1;
 }
 
 $offset = ($bilet - 1) * 12;
