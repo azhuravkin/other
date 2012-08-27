@@ -27,6 +27,9 @@ if (open(IN, "<:encoding(utf-16)", "Questions.ini")) {
     }
 
     close(IN);
+} else {
+    print "Необходимо скачать программу http://beltest.by/files/software/ohotmin2012.exe и извлечь из неё файл Questions.ini\n";
+    exit;
 }
 
 if (0) {
