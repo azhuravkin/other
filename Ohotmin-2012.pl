@@ -68,7 +68,7 @@ for (my $quest_num = 1; $quest_num <= 12; $quest_num++) {
     my $ans = (<STDIN>);
     chop($ans);
 
-    if ($ans eq check($DATA[$offset + $quest_num][10])) {
+    if (order($ans) eq check($DATA[$offset + $quest_num][10])) {
 	$ok++;
 	print color("green"), "\nПравильно! ($ok из $quest_num)", color("reset"), "\n";
     } else {
@@ -81,6 +81,17 @@ if ($ok >= 10) {
     print color("green"), "\n\nБилет $bilet сдан!!! ($ok из 12)", color("reset"), "\n";
 } else {
     print color("red"), "\n\nБилет $bilet не сдан!!! ($ok из 12)", color("reset"), "\n";
+}
+
+sub order {
+    my $ret;
+    my @arr = split(/[ ,]?/, shift);
+
+    foreach my $char (sort {$a <=> $b} @arr) {
+	$ret .= $char;
+    }
+
+    return $ret;
 }
 
 sub check {
