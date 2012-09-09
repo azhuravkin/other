@@ -2,6 +2,7 @@
 
 use strict;
 use Term::ANSIColor;
+use POSIX "ceil";
 
 my @DATA;
 my $id;
@@ -45,8 +46,8 @@ if (0) {
     exit;
 }
 
-while (!$bilet || $bilet < -1 || $bilet > $#DATA / 12) {
-    printf("Введите номер билета от 1 до %d или -1 для случайного выбора: ", $#DATA / 12);
+while (!$bilet || $bilet < -1 || $bilet > ceil($#DATA / 12)) {
+    printf("Введите номер билета от 1 до %d или -1 для случайного выбора: ", ceil($#DATA / 12));
     $bilet = (<STDIN>);
     chop($bilet);
 }
