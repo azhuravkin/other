@@ -58,7 +58,7 @@ if ($bilet == -1) {
 
 $offset = ($bilet - 1) * 12;
 
-for (my $quest_num = 1; $quest_num <= 12; $quest_num++) {
+for (my $quest_num = 1; $quest_num <= 12 && defined($DATA[$offset + $quest_num][0]); $quest_num++) {
     printf("\n%d) %s\n\n", $quest_num, $DATA[$offset + $quest_num][0]);
 
     for (my $i = 1; defined($DATA[$offset + $quest_num][$i]); $i++) {
