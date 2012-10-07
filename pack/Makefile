@@ -14,11 +14,5 @@ unpack: Makefile unpack.o
 list: Makefile list.o
 	$(CC) $(CFLAGS) list.o -o list $(LIBS)
 
-list.o: Makefile list.c pack.h
-	$(CC) $(CFLAGS) -c list.c -o list.o
-
-unpack.o: Makefile unpack.c pack.h
-	$(CC) $(CFLAGS) -c unpack.c -o unpack.o
-
 clean:
 	rm -f pack unpack list $(OBJECTS)
