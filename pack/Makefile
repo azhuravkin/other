@@ -1,9 +1,9 @@
 CC = gcc
 CFLAGS = -Wall -O0 -g -ggdb
-OBJECTS = pack.o unpack.o
+OBJECTS = pack.o unpack.o list.o
 LIBS = 
 
-all: pack unpack
+all: pack unpack list
 
 pack: Makefile pack.o
 	$(CC) $(CFLAGS) pack.o -o pack $(LIBS)
@@ -11,11 +11,14 @@ pack: Makefile pack.o
 unpack: Makefile unpack.o
 	$(CC) $(CFLAGS) unpack.o -o unpack $(LIBS)
 
-pack.o: Makefile pack.c pack.h
-	$(CC) $(CFLAGS) -c pack.c -o pack.o
+list: Makefile list.o
+	$(CC) $(CFLAGS) list.o -o list $(LIBS)
+
+list.o: Makefile list.c pack.h
+	$(CC) $(CFLAGS) -c list.c -o list.o
 
 unpack.o: Makefile unpack.c pack.h
 	$(CC) $(CFLAGS) -c unpack.c -o unpack.o
 
 clean:
-	rm -f pack unpack $(OBJECTS)
+	rm -f pack unpack list $(OBJECTS)
