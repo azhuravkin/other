@@ -60,7 +60,7 @@ int main(int argc, char **argv) {
 	memset(&f, '\0', sizeof(f));
 
 	while ((de = readdir(d))) {
-		if (!strcmp(de->d_name, idx_name) || !strcmp(de->d_name, pack_name))
+		if (strstr(de->d_name, ".idx") || strstr(de->d_name, ".pack"))
 			continue;
 
 		snprintf(file_path, sizeof(file_path), "%s/%s", argv[1], de->d_name);
