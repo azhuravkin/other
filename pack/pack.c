@@ -26,7 +26,7 @@ off_t get_offset(int fp) {
 	lseek(fp, - sizeof(f), SEEK_END);
 	read(fp, &f, sizeof(f));
 
-	return f.begin + f.size;
+	return (f.begin + f.size);
 }
 
 int main(int argc, char **argv) {
