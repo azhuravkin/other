@@ -17,6 +17,7 @@ void append(char *file, int pack) {
 		write(pack, buffer, num);
 
 	close(fp);
+	unlink(file);
 }
 
 int main(int argc, char **argv) {
