@@ -1,7 +1,7 @@
 #include "pack.h"
 
 void usage(char *cmd) {
-	fprintf(stderr, "Usage:\t%s <dir> <num>\n", cmd);
+	fprintf(stderr, "Usage:\t%s <dir> <num> [filename]\n\n", cmd);
 	exit(EXIT_FAILURE);
 }
 
