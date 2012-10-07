@@ -28,7 +28,6 @@ int main(int argc, char **argv) {
 	char pack_name[128];
 	char pack_path[128];
 	char file_path[128];
-	int i = 0;
 	struct file f;
 	int idx;
 	int pack;
@@ -59,7 +58,7 @@ int main(int argc, char **argv) {
 
 	memset(&f, '\0', sizeof(f));
 
-	while ((de = readdir(d)) && (i < 128)) {
+	while ((de = readdir(d))) {
 		if (!strcmp(de->d_name, idx_name) || !strcmp(de->d_name, pack_name))
 			continue;
 
@@ -76,8 +75,6 @@ int main(int argc, char **argv) {
 		f.begin += f.size;
 
 		append(file_path, pack);
-
-		i++;
 	}
 
 	close(idx);
