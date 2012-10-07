@@ -66,13 +66,13 @@ int main(int argc, char **argv) {
 		snprintf(file_path, sizeof(file_path), "%s/%s", argv[1], f.name);
 
 		if (argc == 4) {
-		    if (!strcmp(f.name, argv[3])) {
-			lseek(pack, f.begin, SEEK_SET);
-			create(file_path, &f, pack);
-			break;
-		    }
+			if (!strcmp(f.name, argv[3])) {
+				lseek(pack, f.begin, SEEK_SET);
+				create(file_path, &f, pack);
+				break;
+			}
 		} else
-		    create(file_path, &f, pack);
+			create(file_path, &f, pack);
 	}
 
 	close(idx);
