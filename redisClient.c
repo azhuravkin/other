@@ -19,19 +19,18 @@ int main(int argc, char **argv) {
 	printf("Type: %s\n\n", redisStatus[reply->type]);
 
 	switch (reply->type) {
-	case REDIS_REPLY_ERROR:
-	    puts(reply->str);
-	    break;
-	case REDIS_REPLY_INTEGER:
-	    printf("%ld\n", reply->integer);
-	    break;
-	case REDIS_REPLY_STRING:
-	    puts(reply->str);
-	    break;
-	case REDIS_REPLY_ARRAY:
-	    for (i = 0; i < reply->elements; i++)
-		puts(reply->element[i]->str);
-	    break;
+	    case REDIS_REPLY_STRING:
+	    case REDIS_REPLY_STATUS:
+	    case REDIS_REPLY_ERROR:
+		puts(reply->str);
+		break;
+	    case REDIS_REPLY_INTEGER:
+		printf("%ld\n", reply->integer);
+		break;
+	    case REDIS_REPLY_ARRAY:
+		for (i = 0; i < reply->elements; i++)
+		    puts(reply->element[i]->str);
+		break;
 	}
     }
 
