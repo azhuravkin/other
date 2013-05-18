@@ -56,7 +56,8 @@ function show_next($dir, $files) {
 	height: 300,
 	width: 480,
 	file: "$dir/$first",
-	image: "$dir/images/$img"
+	image: "$dir/images/$img",
+	title: "$first"
     });
 </script>
 END;
