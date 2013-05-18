@@ -14,10 +14,9 @@ function dirent($dir) {
 
     if ($d = opendir($dir)) {
 	while (($e = readdir($d)) !== false) {
-	    if ($e == '.' || $e == '..' || $e == 'images')
-		continue;
-
-	    if (is_file("$dir/$e") && (($dot = strrchr($e, '.')) !== false)) {
+	    if (is_dir("$dir/$e") && $e != '.' && $e != '..' && $e != 'images') {
+		$ret[] = $e;
+	    } elseif (is_file("$dir/$e") && ($dot = strrchr($e, '.')) !== false) {
 		$ext = substr($dot, 1);
 
 		switch ($ext) {
@@ -26,12 +25,12 @@ function dirent($dir) {
 		    case 'm4v':
 		    case 'f4v':
 		    case 'mov':
+			$ret[] = $e;
 			break;
 		    default:
 			continue 2;
 		}
 	    }
-	    $ret[] = $e;
 	}
     }
 
