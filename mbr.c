@@ -1,3 +1,4 @@
+#define _LARGEFILE64_SOURCE
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -21,12 +22,6 @@ struct partition {
 struct mbr {
     unsigned char loader[446];
     struct partition part[4];
-    unsigned char sign[2];
-};
-
-struct ebr {
-    struct partition part;
-    struct partition part_next;
     unsigned char sign[2];
 };
 #pragma pack(pop)
@@ -65,26 +60,27 @@ int main(int argc, char **argv) {
 	}
 
 	if (e != EOF) {
-	    struct ebr ext;
-	    lseek(hdd, record.part[e].offset, SEEK_SET);
+	    struct mbr ext;
+	    lseek64(hdd, (off64_t) (record.part[e].offset) * 512, SEEK_SET);
 	    read(hdd, &ext, sizeof(ext));
-	
+
 	    if (ext.sign[0] != 0x55 || ext.sign[1] != 0xAA) {
-		printf("EBR signature error!\n");
-		return 1;
+	        printf("EBR signature error!\n");
+	        return 1;
 	    }
-	
-	    printf("%s%d %u %u\n",
+
+	    printf("%s%d %s %0.2x %u %u\n",
 		argv[1],
-		e + 5,
-		ext.part.offset,
-		ext.part.sectors_num + ext.part.offset - 1
+		i + 1,
+		record.part[i].active == 0x80 ? "*" : " ",
+		ext.part[0].type,
+		ext.part[0].offset + record.part[e].offset,
+		ext.part[0].sectors_num + ext.part[0].offset + record.part[e].offset - 1
 	    );
 	}
 
 	close(hdd);
     }
-
 
     return 0;
 }
